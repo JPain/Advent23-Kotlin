@@ -19,26 +19,20 @@ fun main() {
 
             val wholeNumber = (digit2.toString() + digit1.toString()).toInt()
 
+            //wholeNumber.println()
+
             result += wholeNumber
         }
         return result
     }
 
     fun part2(input: List<String>): Int {
-        val newInput = mutableListOf<String>()
+        var result = 0
         for (item in input) {
-            item.replace("one", "1")
-            item.replace("two", "2")
-            item.replace("three", "3")
-            item.replace("four", "4")
-            item.replace("five", "5")
-            item.replace("six", "6")
-            item.replace("seven", "7")
-            item.replace("eight", "8")
-            item.replace("nine", "9")
-            newInput.add(item)
+            val newItem = replaceWordsWithDigits(item)
+            result += part1(listOf(newItem))
         }
-        return part1(newInput)
+        return result
     }
 
     // test if implementation meets criteria from the description, like:
@@ -48,4 +42,35 @@ fun main() {
     val input = readInput("Day01")
     part1(input).println()
     part2(input).println()
+
 }
+
+fun replaceWordsWithDigits(input: String): String {
+    val wordsToNumber = mapOf(
+        "zero" to "0", "one" to "1", "two" to "2", "three" to "3",
+        "four" to "4", "five" to "5", "six" to "6",
+        "seven" to "7", "eight" to "8", "nine" to "9"
+    )
+
+    val sb = StringBuilder()
+    var i = 0
+
+    while (i < input.length) {
+        var matched = false
+        for ((word, number) in wordsToNumber) {
+            if (input.startsWith(word, i)) {
+                sb.append(number)
+                i += word.length
+                matched = true
+                break
+            }
+        }
+        if (!matched) {
+            sb.append(input[i])
+            i++
+        }
+    }
+
+    return sb.toString()
+}
+
