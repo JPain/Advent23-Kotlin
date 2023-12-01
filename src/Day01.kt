@@ -25,7 +25,20 @@ fun main() {
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        val newInput = mutableListOf<String>()
+        for (item in input) {
+            item.replace("one", "1")
+            item.replace("two", "2")
+            item.replace("three", "3")
+            item.replace("four", "4")
+            item.replace("five", "5")
+            item.replace("six", "6")
+            item.replace("seven", "7")
+            item.replace("eight", "8")
+            item.replace("nine", "9")
+            newInput.add(item)
+        }
+        return part1(newInput)
     }
 
     // test if implementation meets criteria from the description, like:
